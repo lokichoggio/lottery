@@ -170,3 +170,16 @@ cast send 0x105f441b63eBEca050340EbF1ad2ADE053DEB90F "performUpkeep(bytes)()" ""
 cast call 0x105f441b63eBEca050340EbF1ad2ADE053DEB90F "getRecentWinner()(address)" --rpc-url $SEPOLIA_RPC_URL --private-key $SEPOLIA_PRIVATE_KEY
 0x8021f00c28C0e43788AE1a11f1F97eBf80d131bD
 ```
+
+verify after deploy
+
+```
+forge verify-contract \
+    --chain-id 11155111 \
+    --watch \
+    --constructor-args $(cast abi-encode "constructor(uint64,bytes32,uint256,uint256,uint32,address)" 5489 0x474e34a077df58807dbe9c96d3c009b23b3c6d0cce433e59bbf5b34f823bc56c 30 10000000000000000 500000 0x8103B0A8A00be2DDC778e6e7eaa21791Cd364625) \
+    --etherscan-api-key <your_etherscan_api_key> \
+    --compiler-version v0.8.21+commit.d9974bed \
+    0x105f441b63eBEca050340EbF1ad2ADE053DEB90F \
+    src/Raffle.sol:Raffle
+```
